@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLang } from '../context/LangContext.jsx';
 import { notices, noticeCats } from '../data/content.js';
 import { FileText, Sparkles, Building, Calendar, CheckCircle } from '../components/ui/Icons.jsx';
+import CyberAlert from '../components/common/CyberAlert.jsx';
 
 export default function NoticesPage() {
   const { lang, tr } = useLang();
@@ -45,7 +46,10 @@ export default function NoticesPage() {
       </section>
 
       {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 space-y-12">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14 space-y-10">
+        {/* Urgent Cyber Crime Warning */}
+        <CyberAlert />
+
         {/* Search & Filter Toolbar */}
         <div className="rounded-2xl border border-navy/15 bg-pearl p-4 sm:p-6 shadow-md flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4">
           <div className="relative flex-1 min-w-[240px]">

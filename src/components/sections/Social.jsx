@@ -2,6 +2,7 @@ import { useLang } from '../../context/LangContext.jsx';
 import Reveal from '../ui/Reveal.jsx';
 import { Insta, Fb, Ext, Sparkles } from '../ui/Icons.jsx';
 import { site } from '../../data/content.js';
+import CyberAlert from '../common/CyberAlert.jsx';
 
 export default function Social() {
   const { lang } = useLang();
@@ -98,6 +99,11 @@ export default function Social() {
             </Reveal>
           ))}
         </div>
+
+        {/* Highlighted Cyber Crime Advisory Alert */}
+        <Reveal delay={0.2} className="mt-8 sm:mt-10 w-full min-w-0">
+          <CyberAlert />
+        </Reveal>
       </div>
     </section>
   );

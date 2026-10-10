@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useLang } from '../context/LangContext.jsx';
 import { Plus, Ext, Phone, FileText, CheckCircle, ShieldCheck, Sparkles } from '../components/ui/Icons.jsx';
 import { schemes, portals, helplines, docsNote } from '../data/content.js';
+import CyberAlert from '../components/common/CyberAlert.jsx';
 
 export default function ServicesPage() {
   const { lang, tr } = useLang();
@@ -31,6 +32,9 @@ export default function ServicesPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 space-y-16">
+        {/* Urgent Cyber Crime Warning */}
+        <CyberAlert />
+
         {/* Helplines Grid - Top Priority for Citizens */}
         <section className="rounded-3xl border border-navy/15 bg-pearl p-6 sm:p-8 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-navy/10 pb-4">
@@ -48,24 +52,35 @@ export default function ServicesPage() {
           </div>
 
           <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            {helplines.map(([n, l]) => (
-              <a
-                key={n}
-                href={`tel:${n}`}
-                className="group flex flex-col justify-between rounded-2xl border border-navy/10 bg-ivory p-4 transition-all hover:border-gold hover:shadow-md hover:-translate-y-1"
-                title={`Call ${n}`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-navy group-hover:text-gold transition">
-                    {n}
+            {helplines.map(([n, l]) => {
+              const isCyber = n === '1930';
+              return (
+                <a
+                  key={n}
+                  href={`tel:${n}`}
+                  className={`group flex flex-col justify-between rounded-2xl p-4 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                    isCyber
+                      ? 'border-2 border-red-500 bg-red-50/80 shadow-md ring-2 ring-red-400/30'
+                      : 'border border-navy/10 bg-ivory hover:border-gold'
+                  }`}
+                  title={`Call ${n}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className={`font-serif text-2xl sm:text-3xl font-bold transition ${
+                      isCyber ? 'text-red-700' : 'text-navy group-hover:text-gold'
+                    }`}>
+                      {n}
+                    </span>
+                    <Phone className={`h-4 w-4 ${isCyber ? 'text-red-600 animate-bounce' : 'text-gold'}`} />
+                  </div>
+                  <span className={`mt-2 text-xs font-semibold leading-tight ${
+                    isCyber ? 'text-red-800' : 'text-ink/75'
+                  }`}>
+                    {tr(l)} {isCyber && '🚨'}
                   </span>
-                  <Phone className="h-4 w-4 text-gold" />
-                </div>
-                <span className="mt-2 text-xs font-medium text-ink/75 leading-tight">
-                  {tr(l)}
-                </span>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </section>
 

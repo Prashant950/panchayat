@@ -174,7 +174,7 @@ export default function HomePage() {
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-ink/70 pt-4 border-t border-navy/10">
               <span className="font-semibold text-navy">
-                🚨 आपातकालीन सहायता: 112 (आपातकाल) · 1076 (मुख्यमंत्री हेल्पलाइन) · 181 (महिला सुरक्षा)
+                🚨 आपातकालीन सहायता: 112 (आपातकाल) · <strong className="text-red-700">1930 (साइबर अपराध)</strong> · 1076 (मुख्यमंत्री हेल्पलाइन) · 181 (महिला सुरक्षा)
               </span>
               <Link to="/services" className="font-bold text-gold hover:underline">
                 विस्तृत सूची देखें →

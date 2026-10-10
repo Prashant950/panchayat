@@ -205,7 +205,7 @@ export const gallery = [
     id: 'g-riverside-aid',
     cat: 'welfare',
     src: '/images/riverside-elderly-relief-aid.jpg',
-    alt: T('Handing over essential welfare aid to elderly mother near village pond in the presence of elders', 'गाँव के सरोवर तट पर वरिष्ठ बुजुर्गों की उपस्थिति में वृद्ध माताजी को राहत व आवश्यक सामग्री भेंट'),
+    alt: T('Handing over essential welfare aid to elderly mother near village pond in the presence of elders', 'गाँव के वरिष्ठ बुजुर्गों की उपस्थिति में वृद्ध माताजी को राहत व आवश्यक सामग्री भेंट'),
     desc: T('Delivering compassionate care and household aid to respected village elders.', 'गाँव के बुजुर्गों के प्रति आदरभाव और हर जरूरतमंद माता तक सहायता पहुँचाने की निरंतर सेवा।')
   },
   {
@@ -247,7 +247,7 @@ export const gallery = [
     id: 'g-temple-handover',
     cat: 'welfare',
     src: '/images/temple-courtyard-relief-handover.jpg',
-    alt: T('Handover of essential relief aid to elderly mother at village heritage temple courtyard in Chiluli', 'गाँव के प्राचीन मंदिर परिसर में बुजुर्ग माताजी को सम्मानपूर्वक राहत सामग्री व आवश्यक पैकेट सौंपते हुए'),
+    alt: T('Handover of essential relief aid to elderly mother at village heritage temple courtyard in Chiluli', 'गाँव के परिसर में बुजुर्ग माताजी को सम्मानपूर्वक राहत सामग्री व आवश्यक पैकेट सौंपते हुए'),
     desc: T('Direct respectful welfare assistance delivered to elderly mothers of the village.', 'गाँव की बुजुर्ग माताओं को सम्मानपूर्वक सीधी सहायता और राहत सामग्री प्रदान करने की परंपरा।')
   },
   {
@@ -455,6 +455,19 @@ export const galleryCats = [
 ];
 
 export const notices = [
+  {
+    id: 'n-cyber-1930',
+    date: '2026-10-10',
+    cat: 'deadline',
+    title: T(
+      '⚠️ Urgent Cyber Advisory: Fake Social Media Accounts & Blackmail — Helpline 1930',
+      '⚠️ अति आवश्यक सूचना: फर्जी सोशल मीडिया अकाउंट व फोटो ब्लैकमेलिंग से सावधान — साइबर हेल्पलाइन 1930'
+    ),
+    text: T(
+      'If anyone creates a fake social account in your name to solicit money, or misuses your photos for extortion/blackmail, DO NOT transfer money. Immediately report to National Cyber Crime Helpline 1930 or lodge a complaint at cybercrime.gov.in.',
+      'यदि कोई व्यक्ति आपका या किसी का भी फर्जी सोशल मीडिया अकाउंट (Facebook/Instagram) बनाकर पैसे मांगता है अथवा आपकी फोटो का दुरुपयोग करके ब्लैकमेल करता है, तो घबराएं नहीं और न ही पैसे भेजें। तुरंत राष्ट्रीय साइबर हेल्पलाइन 1930 पर कॉल करें अथवा cybercrime.gov.in पर रिपोर्ट दर्ज कराएं।'
+    )
+  },
   {
     id: 'n1',
     date: '2026-10-15',
