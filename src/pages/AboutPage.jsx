@@ -74,28 +74,29 @@ export default function AboutPage() {
           </div>
 
           {/* Photo Showcase with Framed White/Pearl Border */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative mx-auto max-w-lg lg:max-w-none">
-              <Mask className="overflow-hidden rounded-t-[70px] sm:rounded-t-[100px] rounded-b-2xl border-4 sm:border-8 border-pearl bg-pearl shadow-2xl">
+          <div className="lg:col-span-6 relative mt-4 sm:mt-0">
+            <div className="relative mx-auto max-w-lg lg:max-w-none pb-4 sm:pb-8">
+              <Mask className="relative overflow-hidden rounded-2xl sm:rounded-t-[100px] sm:rounded-b-2xl border-4 sm:border-8 border-pearl bg-pearl shadow-xl sm:shadow-2xl">
                 <img
                   src="/images/panchayat-bhawan.jpg"
                   alt="Panchayat Bhawan Chiluli"
                   className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105"
                 />
+                <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 flex items-center gap-1.5 rounded-full bg-navy/85 px-3 py-1 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-gold backdrop-blur-md border border-gold/40 shadow-lg">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+                  <span>पंचायत भवन चिलूली</span>
+                </div>
               </Mask>
-              <div className="absolute top-4 right-4 rounded-full bg-navy/85 px-3.5 py-1 text-xs font-semibold text-gold backdrop-blur-md border border-gold/40 shadow">
-                पंचायत भवन चिलूली
-              </div>
 
               {/* Overlapping Framed Photo */}
-              <div className="relative mt-4 sm:absolute sm:-bottom-8 sm:-left-6 w-full sm:w-3/5">
-                <figure className="overflow-hidden rounded-xl border-4 sm:border-8 border-pearl bg-pearl shadow-2xl">
+              <div className="relative -mt-10 sm:-mt-0 sm:absolute sm:-bottom-8 sm:-left-6 w-[88%] sm:w-3/5 ml-auto sm:ml-0 z-20">
+                <figure className="overflow-hidden rounded-xl sm:rounded-2xl border-4 sm:border-6 border-pearl bg-pearl shadow-2xl transition duration-500 hover:-translate-y-1">
                   <img
                     src="/images/community-welfare-gathering.jpg"
                     alt="Community in Chiluli"
                     className="aspect-[16/10] w-full object-cover"
                   />
-                  <figcaption className="bg-pearl px-3 py-2 text-center text-xs font-medium text-ink/75">
+                  <figcaption className="bg-pearl px-3.5 py-2 text-center text-xs font-medium text-navy/90">
                     {lang === 'hi' ? 'ग्रामवासी व नेतृत्व एकत्रीकरण' : 'Community & Leadership Meet'}
                   </figcaption>
                 </figure>

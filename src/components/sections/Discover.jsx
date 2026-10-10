@@ -20,7 +20,7 @@ export default function Discover() {
 
   return (
     <>
-      <section id="about" className="relative w-full max-w-full overflow-hidden mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32 lg:grid-cols-12">
+      <section id="about" className="relative w-full max-w-full overflow-hidden mx-auto grid max-w-7xl items-center gap-8 sm:gap-10 lg:gap-12 px-4 sm:px-6 lg:px-8 py-12 sm:py-20 md:py-28 lg:grid-cols-12">
         {/* Text Column */}
         <div className="lg:col-span-5 min-w-0">
           <Reveal>
@@ -30,61 +30,94 @@ export default function Discover() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.12] text-navy">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.15] text-navy">
               A Village With Roots. A Future With Vision.
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="mt-4 font-serif text-xl sm:text-2xl text-terra font-medium">
+            <p className="mt-3 sm:mt-4 font-serif text-lg sm:text-2xl text-terra font-medium">
               अपना चिलुली, अपनी पहचान।
             </p>
           </Reveal>
-          <Reveal delay={0.2} className="mt-6 space-y-4 text-sm sm:text-base leading-relaxed text-ink/80">
+          <Reveal delay={0.2} className="mt-5 sm:mt-6 space-y-3.5 sm:space-y-4 text-sm sm:text-base leading-relaxed text-ink/80">
             {p.map((x, i) => (
               <p key={i}>{x}</p>
             ))}
           </Reveal>
-          <Reveal delay={0.25} className="mt-7 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-lg border border-navy/15 bg-sand/40 px-3 py-1.5 font-medium text-navy">
-              📍 ब्लॉक: सिंहपुर
-            </span>
-            <span className="rounded-lg border border-navy/15 bg-sand/40 px-3 py-1.5 font-medium text-navy">
-              🏛️ तहसील: तिलोई
-            </span>
-            <span className="rounded-lg border border-navy/15 bg-sand/40 px-3 py-1.5 font-medium text-navy">
-              🌟 जनपद: अमेठी
-            </span>
+          <Reveal delay={0.25} className="mt-6 sm:mt-7">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-md">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-gold/30 bg-pearl/90 p-2 sm:p-2.5 text-center shadow-xs">
+                <span className="text-base sm:text-lg mb-0.5">📍</span>
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+                  {lang === 'hi' ? 'ब्लॉक' : 'Block'}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-navy truncate">
+                  {lang === 'hi' ? 'सिंहपुर' : 'Singhpur'}
+                </span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-xl border border-gold/30 bg-pearl/90 p-2 sm:p-2.5 text-center shadow-xs">
+                <span className="text-base sm:text-lg mb-0.5">🏛️</span>
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+                  {lang === 'hi' ? 'तहसील' : 'Tehsil'}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-navy truncate">
+                  {lang === 'hi' ? 'तिलोई' : 'Tiloi'}
+                </span>
+              </div>
+              <div className="flex flex-col items-center justify-center rounded-xl border border-gold/30 bg-pearl/90 p-2 sm:p-2.5 text-center shadow-xs">
+                <span className="text-base sm:text-lg mb-0.5">🌟</span>
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-ink/60">
+                  {lang === 'hi' ? 'जनपद' : 'District'}
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-navy truncate">
+                  {lang === 'hi' ? 'अमेठी' : 'Amethi'}
+                </span>
+              </div>
+            </div>
           </Reveal>
         </div>
 
         {/* Visual / Image Column */}
-        <div className="relative lg:col-span-7 min-w-0">
-          <div className="relative mx-auto max-w-lg lg:max-w-none">
+        <div className="relative lg:col-span-7 min-w-0 mt-4 sm:mt-0">
+          <div className="relative mx-auto max-w-lg lg:max-w-none pb-4 sm:pb-8">
             {/* Primary Arch Image */}
-            <Mask className="overflow-hidden rounded-t-[80px] sm:rounded-t-[120px] rounded-b-2xl border-4 border-pearl shadow-2xl">
+            <Mask className="relative overflow-hidden rounded-2xl sm:rounded-t-[120px] sm:rounded-b-2xl border-4 sm:border-8 border-pearl bg-pearl shadow-xl sm:shadow-2xl">
               <img
                 src="/images/panchayat-bhawan.jpg"
                 alt={tr({ en: 'Panchayat Bhawan Chiluli with painted walls', hi: 'चित्रकारी से सजा पंचायत भवन चिलूली' })}
                 className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105"
                 loading="lazy"
               />
+
+              {/* Image Caption Pill - Nested directly inside the image card */}
+              <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 flex items-center gap-1.5 rounded-full bg-navy/85 px-3 py-1 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-ivory backdrop-blur-md border border-gold/40 shadow-lg">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+                <span>{lang === 'hi' ? 'पंचायत भवन, चिलूली' : 'Panchayat Bhawan, Chiluli'}</span>
+              </div>
+
+              {/* Bottom Subtle Overlay */}
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-navy/60 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 sm:bottom-4 sm:left-4 z-10 flex items-center gap-1.5 text-[11px] sm:text-xs text-ivory/90 font-medium">
+                <Sparkles className="h-3.5 w-3.5 text-gold shrink-0" />
+                <span>{lang === 'hi' ? 'चित्रकारी एवं ग्राम प्रशासनिक केंद्र' : 'Murals & Civic Center'}</span>
+              </div>
             </Mask>
 
-            {/* Image Caption Pill */}
-            <div className="absolute top-4 right-4 rounded-full bg-navy/85 px-3.5 py-1 text-[11px] font-medium text-ivory backdrop-blur-md border border-gold/40 shadow">
-              पंचायत भवन, चिलूली
-            </div>
-
             {/* Overlapping Community Photo */}
-            <Reveal delay={0.3} className="relative mt-4 sm:absolute sm:-bottom-8 sm:-left-6 md:-left-10 w-full sm:w-2/3">
-              <figure className="overflow-hidden rounded-xl border-4 sm:border-8 border-pearl bg-pearl shadow-xl">
-                <img
-                  src="/images/gram-sabha-program.jpg"
-                  alt={tr({ en: 'Community gathering at Panchayat Bhawan Chiluli', hi: 'पंचायत भवन चिलूली पर ग्रामवासी' })}
-                  className="aspect-[16/9] w-full object-cover transition duration-700 hover:scale-105"
-                  loading="lazy"
-                />
-                <figcaption className="bg-pearl px-3 py-2 text-center text-xs font-medium text-ink/70">
+            <Reveal delay={0.25} className="relative -mt-10 sm:-mt-0 sm:absolute sm:-bottom-8 sm:-left-6 md:-left-10 w-[88%] sm:w-2/3 ml-auto sm:ml-0 z-20">
+              <figure className="overflow-hidden rounded-xl sm:rounded-2xl border-4 sm:border-6 border-pearl bg-pearl shadow-2xl transition duration-500 hover:-translate-y-1">
+                <div className="relative">
+                  <img
+                    src="/images/gram-sabha-program.jpg"
+                    alt={tr({ en: 'Community gathering at Panchayat Bhawan Chiluli', hi: 'पंचायत भवन चिलूली पर ग्रामवासी' })}
+                    className="aspect-[16/9] w-full object-cover transition duration-700 hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-2 left-2 rounded-full bg-terra/90 px-2.5 py-0.5 text-[10px] font-semibold text-ivory backdrop-blur-xs shadow">
+                    {lang === 'hi' ? 'जनसहभागिता' : 'Community'}
+                  </div>
+                </div>
+                <figcaption className="bg-pearl px-3.5 py-2 text-center text-xs font-medium text-navy/90">
                   {lang === 'hi' ? 'सामुदायिक जनसंवाद एवं ग्राम सभा कार्यक्रम' : 'Community Gram Sabha Gathering'}
                 </figcaption>
               </figure>
