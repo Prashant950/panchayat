@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLang } from '../context/LangContext.jsx';
 import { Plus, Ext, Phone, FileText, CheckCircle, ShieldCheck, Sparkles } from '../components/ui/Icons.jsx';
-import { schemes, portals, helplines, docsNote } from '../data/content.js';
+import { schemes, portals, helplines, docsNote, administrativeContacts } from '../data/content.js';
 import CyberAlert from '../components/common/CyberAlert.jsx';
 
 export default function ServicesPage() {
   const { lang, tr } = useLang();
   const [open, setOpen] = useState('pmayg');
+  const [adminFilter, setAdminFilter] = useState('all');
+
+  const filteredContacts = useMemo(() => {
+    return administrativeContacts.filter((c) => {
+      if (adminFilter === 'highlight' && !c.highlight) return false;
+      if (adminFilter === 'local' && c.category !== 'tehsil' && c.category !== 'block') return false;
+      if (adminFilter === 'dept' && c.category !== 'dept') return false;
+      return true;
+    });
+  }, [adminFilter]);
 
   return (
     <div className="pt-24 sm:pt-28 pb-20">
@@ -81,6 +91,106 @@ export default function ServicesPage() {
                 </a>
               );
             })}
+          </div>
+
+          {/* District & Tehsil Administrative Directory - Compact Highlighted Cards */}
+          <div className="mt-10 pt-8 border-t border-navy/10">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-0.5 text-[11px] font-bold text-amber-900">
+                  <ShieldCheck className="h-3.5 w-3.5 text-amber-600" />
+                  <span>{lang === 'hi' ? 'महत्वपूर्ण प्रशासनिक दूरभाष डायरेक्टरी (16 संपर्क)' : 'Official Administrative Directory (16 Contacts)'}</span>
+                </div>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-navy mt-1">
+                  {lang === 'hi' ? 'जनपद, तहसील व ब्लॉक प्रशासनिक अधिकारी' : 'District, Tehsil & Block Administrative Directory'}
+                </h3>
+                <p className="text-xs text-ink/70 mt-0.5">
+                  {lang === 'hi'
+                    ? 'अमेठी, तिलोई एवं सिंहपुर के जिम्मेदार अधिकारियों के सीधे शासकीय मोबाइल नंबर — 1-टैप में कॉल करें।'
+                    : 'Direct official mobile numbers of key administrative officers for Amethi, Tiloi, and Singhpur.'}
+                </p>
+              </div>
+
+              {/* Filter Chips */}
+              <div className="flex flex-wrap items-center gap-1.5 self-start sm:self-auto">
+                {[
+                  { id: 'all', label: lang === 'hi' ? 'सभी (16)' : 'All (16)' },
+                  { id: 'highlight', label: lang === 'hi' ? '⭐ मुख्य' : '⭐ Key' },
+                  { id: 'local', label: lang === 'hi' ? 'तिलोई/सिंहपुर' : 'Tiloi/Singhpur' },
+                  { id: 'dept', label: lang === 'hi' ? 'विभाग' : 'Departments' }
+                ].map((btn) => (
+                  <button
+                    key={btn.id}
+                    onClick={() => setAdminFilter(btn.id)}
+                    className={`rounded-full px-3 py-1 text-[11px] font-bold transition shadow-sm ${
+                      adminFilter === btn.id
+                        ? 'bg-navy text-gold ring-1 ring-gold/40'
+                        : 'bg-ivory border border-navy/15 text-navy hover:bg-gold/15'
+                    }`}
+                  >
+                    {btn.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Compact Cards Grid - 4 Columns, Clean Height */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {filteredContacts.map((c) => {
+                const isPriority = c.highlight;
+                return (
+                  <div
+                    key={c.id}
+                    className={`group relative flex flex-col justify-between rounded-2xl p-3.5 transition-all duration-200 hover:shadow-md ${
+                      isPriority
+                        ? 'border-2 border-amber-400/90 bg-gradient-to-br from-pearl to-amber-50/60 shadow-sm ring-1 ring-amber-300/40'
+                        : 'border border-navy/15 bg-ivory hover:border-gold/60'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-1 text-[10px]">
+                        <span className={`rounded-md px-2 py-0.5 font-bold uppercase tracking-wider ${
+                          isPriority ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-sand text-navy/70'
+                        }`}>
+                          {tr(c.badge)}
+                        </span>
+                        {isPriority && (
+                          <span className="text-amber-700 font-extrabold text-[10px]">
+                            ★ {lang === 'hi' ? 'मुख्य' : 'Key'}
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className="font-serif text-sm sm:text-base font-bold text-navy mt-1.5 leading-snug group-hover:text-emerald-800 transition line-clamp-1">
+                        {tr(c.name)}
+                      </h4>
+                      <p className="text-[11px] font-semibold text-gold leading-tight line-clamp-1">
+                        {tr(c.role)}
+                      </p>
+                    </div>
+
+                    <div className="mt-3 pt-2 border-t border-navy/10 flex items-center justify-between gap-2">
+                      <span className="font-mono text-sm sm:text-base font-black text-navy tracking-tight">
+                        {c.phone}
+                      </span>
+
+                      <a
+                        href={`tel:${c.phone}`}
+                        className={`inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-bold shadow-sm transition active:scale-95 ${
+                          isPriority
+                            ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                            : 'bg-navy hover:bg-gold text-ivory hover:text-navy'
+                        }`}
+                        title={`Call ${c.phone}`}
+                      >
+                        <Phone className="h-3 w-3" />
+                        <span>{lang === 'hi' ? 'कॉल' : 'Call'}</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
 

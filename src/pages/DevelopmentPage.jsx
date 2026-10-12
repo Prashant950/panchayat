@@ -1,10 +1,13 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '../context/LangContext.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import { Arrow, Sun, Droplets, Lightbulb, Users, Building, Sparkles, CheckCircle } from '../components/ui/Icons.jsx';
+import { Arrow, Sun, Droplets, Lightbulb, Users, Building, Sparkles, CheckCircle, Close } from '../components/ui/Icons.jsx';
 import { projects, projectCats } from '../data/content.js';
 
 export default function DevelopmentPage() {
   const { lang, tr } = useLang();
+  const [activeModalImage, setActiveModalImage] = useState(null);
 
   const catIcons = [
     Building, // Roads & public infra
@@ -56,12 +59,37 @@ export default function DevelopmentPage() {
                   <div>
                     {/* Framed White Photo */}
                     <div className="overflow-hidden rounded-2xl border-4 sm:border-6 border-pearl bg-pearl shadow-lg relative">
-                      <img
-                        src={p.img}
-                        alt={tr(p.title)}
-                        className="aspect-[16/10] w-full object-cover transition duration-700 hover:scale-105"
-                      />
-                      <div className="absolute top-3 left-3 flex gap-2">
+                      {p.images && p.images.length > 1 ? (
+                        <div className="aspect-[16/10] w-full grid grid-cols-2 grid-rows-2 gap-1 sm:gap-1.5 bg-navy/20 p-1 sm:p-1.5">
+                          {p.images.slice(0, 4).map((imgSrc, imgIdx) => (
+                            <div
+                              key={imgIdx}
+                              onClick={() => setActiveModalImage({ src: imgSrc, title: tr(p.title), idx: imgIdx + 1 })}
+                              className="relative h-full w-full overflow-hidden rounded-lg cursor-pointer group/subimg bg-navy/40"
+                              title={lang === 'hi' ? 'बड़ा देखने के लिए क्लिक करें' : 'Click to zoom'}
+                            >
+                              <img
+                                src={imgSrc}
+                                alt={`${tr(p.title)} ${imgIdx + 1}`}
+                                className="h-full w-full object-cover transition duration-500 group-hover/subimg:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-navy/0 group-hover/subimg:bg-navy/30 transition-colors flex items-center justify-center">
+                                <span className="opacity-0 group-hover/subimg:opacity-100 transition-opacity bg-navy/90 text-gold text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full border border-gold/40 shadow backdrop-blur-sm">
+                                  🔍 {lang === 'hi' ? 'बड़ा देखें' : 'Zoom'}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <img
+                          src={p.img}
+                          alt={tr(p.title)}
+                          className="aspect-[16/10] w-full object-cover transition duration-700 hover:scale-105"
+                        />
+                      )}
+
+                      <div className="absolute top-3 left-3 flex gap-2 pointer-events-none z-10">
                         <span className="rounded-full bg-saffron px-3 py-1 text-xs font-bold text-navy shadow">
                           {tr(p.status)}
                         </span>
@@ -69,6 +97,14 @@ export default function DevelopmentPage() {
                           {tr(p.place)}
                         </span>
                       </div>
+
+                      {p.images && p.images.length > 1 && (
+                        <div className="absolute bottom-2.5 right-2.5 pointer-events-none z-10">
+                          <span className="rounded-full bg-navy/90 px-2.5 py-1 text-[11px] font-semibold text-gold backdrop-blur-md border border-gold/30 shadow flex items-center gap-1">
+                            📷 4 {lang === 'hi' ? 'तस्वीरें' : 'Photos'}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <h3 className="mt-6 font-serif text-2xl sm:text-3xl font-bold text-navy">
@@ -164,6 +200,58 @@ export default function DevelopmentPage() {
           </div>
         </section>
       </main>
+
+      {/* Lightbox Fullscreen Modal */}
+      <AnimatePresence>
+        {activeModalImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-navy/95 p-3 sm:p-6 backdrop-blur-sm"
+            onClick={() => setActiveModalImage(null)}
+          >
+            <button
+              className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-ivory hover:bg-white/30 active:scale-95 transition z-30 shadow-lg"
+              aria-label="Close"
+              onClick={() => setActiveModalImage(null)}
+            >
+              <Close className="h-6 w-6" />
+            </button>
+
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-3xl flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-full overflow-hidden rounded-2xl border-4 sm:border-6 border-pearl bg-pearl shadow-2xl">
+                <img
+                  src={activeModalImage.src}
+                  alt={activeModalImage.title}
+                  className="max-h-[75vh] w-full object-contain bg-navy/95"
+                />
+                <div className="p-4 bg-pearl flex items-center justify-between border-t border-navy/10 text-xs sm:text-sm">
+                  <div className="font-serif font-bold text-navy">
+                    {activeModalImage.title} {activeModalImage.idx ? `(${lang === 'hi' ? 'तस्वीर' : 'Photo'} ${activeModalImage.idx}/4)` : ''}
+                  </div>
+                  <button
+                    onClick={() => setActiveModalImage(null)}
+                    className="rounded-full bg-navy/10 px-4 py-1.5 font-semibold text-navy hover:bg-navy/20 active:scale-95 transition"
+                  >
+                    {lang === 'hi' ? 'बंद करें ✕' : 'Close ✕'}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

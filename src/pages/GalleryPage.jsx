@@ -6,12 +6,39 @@ import Reveal from '../components/ui/Reveal.jsx';
 import { Close, Arrow, Sparkles, Building, Users, ShieldCheck, Phone } from '../components/ui/Icons.jsx';
 import { gallery, galleryCats, site } from '../data/content.js';
 
+const ITEMS_PER_PAGE = 6;
+
 export default function GalleryPage() {
   const { lang, tr } = useLang();
   const [cat, setCat] = useState('');
   const [open, setOpen] = useState(null);
+  const [page, setPage] = useState(1);
 
   const list = gallery.filter((g) => !cat || g.cat === cat);
+  const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE) || 1;
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const paginatedList = list.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    const gridEl = document.getElementById('gallery-grid');
+    if (gridEl) {
+      gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const getPageNumbers = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    if (page <= 3) {
+      return [1, 2, 3, 4, '...', totalPages];
+    }
+    if (page >= totalPages - 2) {
+      return [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    }
+    return [1, '...', page - 1, page, page + 1, '...', totalPages];
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -72,7 +99,7 @@ export default function GalleryPage() {
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pb-6 border-b border-navy/10">
           <button
             className={chip(!cat)}
-            onClick={() => { setCat(''); setOpen(null); }}
+            onClick={() => { setCat(''); setPage(1); setOpen(null); }}
           >
             {lang === 'hi' ? `सभी तस्वीरें (${gallery.length})` : `All Photos (${gallery.length})`}
           </button>
@@ -80,23 +107,23 @@ export default function GalleryPage() {
             <button
               key={k}
               className={chip(cat === k)}
-              onClick={() => { setCat(k); setOpen(null); }}
+              onClick={() => { setCat(k); setPage(1); setOpen(null); }}
             >
               {tr(l)} ({gallery.filter((g) => g.cat === k).length})
             </button>
           ))}
         </div>
 
-        {/* Gallery Grid with Instant Loading & Framed Borders */}
-        <div className="mt-10 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-          {list.map((g, i) => {
-            // Immediate rendering on scroll - only stagger first row slightly on initial load
+        {/* Gallery Grid with 6 Items Per Page & Framed Borders */}
+        <div id="gallery-grid" className="mt-10 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          {paginatedList.map((g, i) => {
+            const globalIndex = startIndex + i;
             const cardDelay = i < 3 ? i * 0.04 : 0;
             return (
               <Reveal key={g.id} delay={cardDelay} className="w-full min-w-0">
                 <figure className="group overflow-hidden rounded-2xl border-4 sm:border-8 border-pearl bg-pearl shadow-lg hover:shadow-2xl transition-all duration-300">
                   <button
-                    onClick={() => setOpen(i)}
+                    onClick={() => setOpen(globalIndex)}
                     className="relative block w-full overflow-hidden text-left cursor-pointer bg-sand/30 aspect-[4/3]"
                     aria-label={tr(g.alt)}
                   >
@@ -145,6 +172,73 @@ export default function GalleryPage() {
             );
           })}
         </div>
+
+        {/* Responsive Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="mt-12 sm:mt-16 flex flex-col items-center gap-4 border-t border-navy/10 pt-8">
+            <div className="text-xs sm:text-sm font-medium text-ink/70">
+              {lang === 'hi'
+                ? `पृष्ठ ${page} का ${totalPages} (तस्वीरें ${startIndex + 1}–${Math.min(startIndex + ITEMS_PER_PAGE, list.length)} / कुल ${list.length})`
+                : `Page ${page} of ${totalPages} (Photos ${startIndex + 1}–${Math.min(startIndex + ITEMS_PER_PAGE, list.length)} of ${list.length})`}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+              {/* Prev Button */}
+              <button
+                onClick={() => handlePageChange(Math.max(1, page - 1))}
+                disabled={page === 1}
+                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition ${
+                  page === 1
+                    ? 'opacity-35 cursor-not-allowed bg-navy/10 text-ink/40'
+                    : 'bg-navy text-ivory hover:bg-gold hover:text-navy shadow-sm active:scale-95'
+                }`}
+                aria-label="Previous Page"
+              >
+                <span>←</span>
+                <span>{lang === 'hi' ? 'पिछला' : 'Prev'}</span>
+              </button>
+
+              {/* Numbered Page Buttons */}
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                {getPageNumbers().map((pNum, idx) =>
+                  pNum === '...' ? (
+                    <span key={`dots-${idx}`} className="px-1.5 text-ink/40 text-sm font-bold select-none">
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={pNum}
+                      onClick={() => handlePageChange(pNum)}
+                      className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full text-xs sm:text-sm font-bold transition ${
+                        page === pNum
+                          ? 'bg-gold text-navy shadow-md scale-105 border border-gold/40'
+                          : 'bg-pearl text-ink/80 hover:bg-gold/15 hover:text-navy border border-navy/15'
+                      }`}
+                      aria-label={`Go to page ${pNum}`}
+                    >
+                      {pNum}
+                    </button>
+                  )
+                )}
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
+                disabled={page === totalPages}
+                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition ${
+                  page === totalPages
+                    ? 'opacity-35 cursor-not-allowed bg-navy/10 text-ink/40'
+                    : 'bg-navy text-ivory hover:bg-gold hover:text-navy shadow-sm active:scale-95'
+                }`}
+                aria-label="Next Page"
+              >
+                <span>{lang === 'hi' ? 'अगला' : 'Next'}</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Verification & Security Notice */}
         <div className="mt-14 space-y-4">

@@ -5,8 +5,20 @@ export const site = {
   name: T('Gram Panchayat Chiluli', 'ग्राम पंचायत चिलूली'),
   tagline: T('Our Soil, Our Identity', 'हमारी मिट्टी, हमारी पहचान।'),
   pradhan: T('Vishnu Pratap Singh', 'विष्णु प्रताप सिंह'),
+  pradhanPhone: '9455134505',
+  pradhanCategory: T('General Category', 'सामान्य वर्ग'),
+  phone: '9455134505',
+  secretary: T('Lal Chand Saroj', 'लाल चंद सरोज'),
+  secretaryPhone: '9807051431',
+  formerPradhan: T('Mo. Ibrahim Kha', 'मो० इब्राहिम खां'),
+  formerPradhanPhone: '9838465524',
+  formerPradhanCategory: T('OBC (Backward Class)', 'पिछड़ा वर्ग'),
+  formerPradhanImage: '/images/former-pradhan-ibrahim-kha.jpg',
+  pradhanImage: '/images/ration-distribution-1.jpg',
+  blockCode: '2063',
+  panchayatCode: '84242',
+  blockTotalPanchayats: '58',
   address: T('Panchayat Bhawan Chiluli, Development Block Singhpur, Tehsil Tiloi, District Amethi, Uttar Pradesh - 229309', 'पंचायत भवन चिलूली, विकास खंड सिंहपुर, तहसील तिलोई, जनपद अमेठी, उत्तर प्रदेश - 229309'),
-  phone: null,
   email: null,
   instagram: 'https://www.instagram.com/chiluli_tiloi_amethi_2022?cplk=Y3dqdXRmN3JhZjUx',
   facebook: 'https://www.facebook.com/share/1FEcoAnmEi/',
@@ -17,9 +29,11 @@ export const tbu = T('Information being updated', 'जानकारी अप�
 
 export const facts = [
   [T('Gram Pradhan (present)', 'ग्राम प्रधान (वर्तमान)'), site.pradhan],
-  [T('Development Block', 'विकास खंड'), T('Singhpur', 'सिंहपुर')],
+  [T('Development Block', 'विकास खंड'), T('Singhpur (~58 Panchayats)', 'सिंहपुर (लगभग 58 ग्राम पंचायतें)')],
   [T('Tehsil', 'तहसील'), T('Tiloi', 'तिलोई')],
   [T('District', 'जनपद'), T('Amethi', 'अमेठी')],
+  [T('Gram Panchayat Code', 'ग्राम पंचायत कोड'), '84242'],
+  [T('Development Block Code', 'विकास खण्ड कोड'), '2063'],
 ];
 
 export const pending = [
@@ -58,7 +72,13 @@ export const projects = [
   },
   {
     id: 'solar-lights',
-    img: '/images/panchayat-bhawan.jpg',
+    img: '/images/solar-light-1.png',
+    images: [
+      '/images/solar-light-1.png',
+      '/images/solar-light-2.png',
+      '/images/solar-light-3.png',
+      '/images/solar-light-4.png'
+    ],
     status: T('Ongoing', 'प्रगति पर'),
     title: T('Solar & Street Lighting Phase', 'सोलर व स्ट्रीट लाइट व्यवस्था'),
     place: T('Main Pathways, Chiluli', 'गाँव के प्रमुख मार्ग, चिलूली'),
@@ -585,23 +605,203 @@ export const helplines = [
 
 export const team = [
   [
-    T('Gram Pradhan', 'ग्राम प्रधान'),
+    T('Gram Pradhan (Present)', 'वर्तमान ग्राम प्रधान'),
     site.pradhan,
-    T('Present elected Pradhan of Gram Panchayat Chiluli, leading village governance, public welfare distribution, and rural development initiatives.', 'ग्राम पंचायत चिलूली के वर्तमान निर्वाचित ग्राम प्रधान — गाँव के विकास, जनकल्याणकारी योजनाओं और नागरिक सुविधाओं के क्रियान्वयन में निरंतर सेवारत।')
+    T('Present elected Pradhan of Gram Panchayat Chiluli, leading village governance, public welfare distribution, and rural development initiatives.', 'ग्राम पंचायत चिलूली के वर्तमान निर्वाचित ग्राम प्रधान — गाँव के विकास, जनकल्याणकारी योजनाओं और नागरिक सुविधाओं के क्रियान्वयन में निरंतर सेवारत।'),
+    site.pradhanPhone,
+    site.pradhanCategory,
+    T('Active Elected Term', 'सक्रिय निर्वाचित कार्यकाल'),
+    site.pradhanImage
   ],
   [
-    T('Panchayat Secretary (VDO)', 'पंचायत सचिव (ग्राम विकास अधिकारी)'),
+    T('Panchayat Secretary (VDO)', 'ग्राम पंचायत सचिव (VDO)'),
+    site.secretary,
+    T('Appointed government administrative official assisting in village development works, record verification, and official documentation.', 'शासकीय प्रशासनिक अधिकारी — विकास कार्यों, अभिलेखों के संचालन, प्रमाण-पत्र सत्यापन तथा शासकीय योजनाओं के क्रियान्वयन में प्रशासनिक सहयोग प्रदान करते हैं।'),
+    site.secretaryPhone,
     null,
-    T('Appointed government administrative official assisting in village development works and record verification.', 'शासकीय प्रशासनिक अधिकारी जो विकास कार्यों व अभिलेखों के संचालन में सहयोग प्रदान करते हैं।')
+    T('Appointed Government Official', 'शासकीय प्रशासनिक अधिकारी'),
+    null
   ],
   [
     T('Ward Members (Gram Panchayat Sadasya)', 'ग्राम पंचायत वार्ड सदस्य'),
     null,
-    T('Elected ward representatives participating in Gram Sabha resolutions and local area management.', 'गाँव के विभिन्न वार्डों के निर्वाचित प्रतिनिधि जो ग्राम सभा के निर्णयों में सहभागिता करते हैं।')
+    T('Elected ward representatives participating in Gram Sabha resolutions and local area management.', 'गाँव के विभिन्न वार्डों के निर्वाचित प्रतिनिधि जो ग्राम सभा के निर्णयों में सहभागिता करते हैं।'),
+    null,
+    null,
+    T('Ward Representatives', 'वार्ड प्रतिनिधि मंडल'),
+    null
   ],
   [
     T('Community & Citizen Representatives', 'सामुदायिक प्रतिनिधि व प्रबुद्धजन'),
     null,
-    T('Elders and community members engaged in social harmony, public welfare, and youth guidance.', 'गाँव के बुजुर्ग और प्रबुद्धजन जो सामाजिक समरसता और विकास कार्यों में मार्गदर्शन देते हैं।')
+    T('Elders and community members engaged in social harmony, public welfare, and youth guidance.', 'गाँव के बुजुर्ग और प्रबुद्धजन जो सामाजिक समरसता और विकास कार्यों में मार्गदर्शन देते हैं।'),
+    null,
+    null,
+    T('Civic Council', 'नागरिक परामर्श मंडल'),
+    null
   ]
 ];
+
+export const administrativeContacts = [
+  {
+    id: 'dm-amethi',
+    name: T('District Magistrate (DM Amethi)', 'जिलाधिकारी (DM अमेठी)'),
+    role: T('District Executive & Magistrate Head', 'जनपद प्रशासनिक व कानून व्यवस्था प्रमुख'),
+    phone: '9454418891',
+    category: 'district',
+    badge: T('District Magistrate', 'जिलाधिकारी'),
+    highlight: true,
+    desc: T('District Magistrate & Collector, Amethi - Administrative, revenue, and district governance head.', 'जनपद अमेठी के शीर्ष प्रशासनिक, राजस्व एवं कानून व्यवस्था अधिकारी।')
+  },
+  {
+    id: 'sp-amethi',
+    name: T('Superintendent of Police (SP Amethi)', 'पुलिस अधीक्षक (SP अमेठी)'),
+    role: T('District Police Chief', 'जनपद पुलिस प्रमुख'),
+    phone: '9454400427',
+    category: 'district',
+    badge: T('Police Chief', 'पुलिस अधीक्षक'),
+    highlight: true,
+    desc: T('Superintendent of Police, Amethi - District law & order, public safety, and police command.', 'जनपद अमेठी पुलिस मुख्यालय — शांति, सुरक्षा एवं कानून व्यवस्था प्रमुख।')
+  },
+  {
+    id: 'cdo-amethi',
+    name: T('Chief Development Officer (CDO)', 'मुख्य विकास अधिकारी (CDO)'),
+    role: T('Rural & Panchayat Development Head', 'ग्रामीण विकास व जनकल्याण प्रमुख'),
+    phone: '9454465472',
+    category: 'district',
+    badge: T('Chief Development Officer', 'मुख्य विकास अधिकारी'),
+    highlight: true,
+    desc: T('Chief Development Officer, Amethi - Direct executive supervision of rural schemes, Panchayati Raj, and MNREGA.', 'जनपद में ग्रामीण विकास, पंचायती राज, मनरेगा एवं जनकल्याणकारी योजनाओं के क्रियान्वयन प्रमुख।')
+  },
+  {
+    id: 'sdm-tiloi',
+    name: T('Sub-Divisional Magistrate (SDM Tiloi)', 'एस0डी0एम 0तिलोई (उपजिलाधिकारी)'),
+    role: T('Sub-Division & Tehsil Tiloi Head', 'तहसील तिलोई उपजिलाधिकारी'),
+    phone: '9454416632',
+    category: 'tehsil',
+    badge: T('SDM Tiloi (Local Tehsil)', 'एस0डी0एम 0तिलोई (स्थानीय तहसील)'),
+    highlight: true,
+    desc: T('Sub-Divisional Magistrate Tiloi - Executive head for Tehsil Tiloi jurisdiction encompassing Chiluli.', 'चिलूली ग्राम पंचायत की तहसील तिलोई के शीर्ष उपजिलाधिकारी।')
+  },
+  {
+    id: 'tehsildar-tiloi',
+    name: T('Tehsildar Tiloi', 'तहसीलदार तिलोई'),
+    role: T('Revenue & Land Administration', 'राजस्व व भू-अभिलेख प्रशासन'),
+    phone: '9454416640',
+    category: 'tehsil',
+    badge: T('Tehsildar Tiloi', 'तहसीलदार तिलोई'),
+    highlight: true,
+    desc: T('Tehsildar Tiloi - Revenue administration, land mutation (Dakhil-Kharij), certifications, and local matters.', 'तहसील तिलोई क्षेत्र में दाखिल-खारिज, राजस्व विवाद एवं प्रमाण-पत्र संबंधी शीर्ष राजस्व अधिकारी।')
+  },
+  {
+    id: 'co-tiloi',
+    name: T('Circle Officer Police (CO Tiloi)', 'क्षेत्राधिकारी तिलोई (CO पुलिस)'),
+    role: T('Tiloi Police Circle Command', 'क्षेत्राधिकारी पुलिस सर्किल तिलोई'),
+    phone: '9454401516',
+    category: 'tehsil',
+    badge: T('CO Police Tiloi', 'क्षेत्राधिकारी तिलोई'),
+    highlight: true,
+    desc: T('Circle Officer Police, Tiloi - Law and order, security operations, and police supervision across Tiloi.', 'तहसील तिलोई सर्किल क्षेत्र में पुलिस प्रशासन एवं सुरक्षा व्यवस्था प्रमुख।')
+  },
+  {
+    id: 'bdo-singhpur',
+    name: T('Block Development Officer - Singhpur', 'खंड विकास अधिकारी - सिंहपुर (BDO)'),
+    role: T('Block Development & Panchayat Executive', 'विकास खंड सिंहपुर प्रमुख'),
+    phone: '9454465485',
+    category: 'block',
+    badge: T('BDO Singhpur (Local Block)', 'खंड विकास अधिकारी - सिंहपुर (स्थानीय ब्लॉक)'),
+    highlight: true,
+    desc: T('BDO Singhpur - Block administrative executive directly governing Gram Panchayat Chiluli and rural schemes.', 'विकास खंड सिंहपुर के प्रशासनिक प्रमुख — ग्राम पंचायत चिलूली के विकास व शासकीय कार्यों के नोडल अधिकारी।')
+  },
+  {
+    id: 'cmo-amethi',
+    name: T('Chief Medical Officer (CMO)', 'मुख्य चिकित्साधिकारी (CMO)'),
+    role: T('District Health & Hospitals Head', 'जनपद स्वास्थ्य एवं चिकित्सा प्रमुख'),
+    phone: '9454455216',
+    category: 'dept',
+    badge: T('CMO Health', 'मुख्य चिकित्साधिकारी'),
+    highlight: true,
+    desc: T('CMO Amethi - District government hospitals, CHC/PHC clinics, ambulances, and immunization programs.', 'जनपद के सभी सरकारी अस्पताल, सीएचसी, पीएचसी व सार्वजनिक स्वास्थ्य सेवाओं के प्रमुख।')
+  },
+  {
+    id: 'sdm-amethi',
+    name: T('Sub-Divisional Magistrate (SDM Amethi)', 'एस0डी0एम 0अमेठी'),
+    role: T('Sub-Divisional Magistrate Amethi', 'उपजिलाधिकारी अमेठी'),
+    phone: '9454416183',
+    category: 'district',
+    badge: T('SDM Amethi', 'एस0डी0एम 0अमेठी'),
+    highlight: false,
+    desc: T('Sub-Divisional Magistrate, Amethi Sub-Division administration and magistracy.', 'अमेठी उप-संभाग के प्रशासनिक व मजिस्ट्रेटीय कार्य।')
+  },
+  {
+    id: 'cfo-amethi',
+    name: T('Chief Fire Officer (CFO)', 'अग्नि शमन अधिकारी (CFO)'),
+    role: T('District Fire Service & Safety', 'अग्निशमन व आपातकालीन राहत'),
+    phone: '7054609577',
+    category: 'dept',
+    badge: T('Fire Officer', 'अग्नि शमन अधिकारी'),
+    highlight: true,
+    desc: T('District Fire Service Amethi - Emergency firefighting, rescue response, and fire prevention.', 'आग लगने की आपात स्थिति, अग्नि सुरक्षा व तत्काल राहत-बचाव दल।')
+  },
+  {
+    id: 'dfo-amethi',
+    name: T('Divisional Forest Officer (DFO)', 'प्रभागीय वनाधिकारी (डी0 एफ0ओ0)'),
+    role: T('Forest & Environment Conservation', 'वन एवं पर्यावरण विभाग'),
+    phone: '7839435156',
+    category: 'dept',
+    badge: T('Forest DFO', 'प्रभागीय वनाधिकारी'),
+    highlight: false,
+    desc: T('Divisional Forest Officer Amethi - Tree plantation, wildlife protection, and forest management.', 'वृक्षारोपण, वन संरक्षण, वन्य जीव सुरक्षा एवं पर्यावरण संवर्धन।')
+  },
+  {
+    id: 'se-electricity',
+    name: T('Superintending Engineer Electricity', 'अधीक्षण अभियंता विद्युत'),
+    role: T('District Power Distribution', 'विद्युत वितरण मंडल'),
+    phone: '8004915109',
+    category: 'dept',
+    badge: T('Power Supply', 'अधीक्षण अभियंता विद्युत'),
+    highlight: false,
+    desc: T('Superintending Engineer (Electricity) - Rural electricity supply, power grid, and transformer maintenance.', 'ग्रामीण विद्युत आपूर्ति, ट्रांसफार्मर मरम्मत एवं बिजली व्यवस्था से संबंधित।')
+  },
+  {
+    id: 'ee-tubewell',
+    name: T('Executive Engineer Tubewell (Irrigation)', 'अधिशाषी अभियंता नलकूप'),
+    role: T('Agricultural Tubewells & Irrigation', 'राजकीय नलकूप व सिंचाई व्यवस्था'),
+    phone: '9454415410',
+    category: 'dept',
+    badge: T('Irrigation Tubewell', 'अभियंता नलकूप'),
+    highlight: false,
+    desc: T('Executive Engineer (Tubewells) - Agricultural irrigation, government tubewell repairs, and water channel management.', 'गाँव के खेतों की सिंचाई, राजकीय नलकूपों के संचालन व तकनीकी मरम्मत से संबंधित।')
+  },
+  {
+    id: 'bsa-amethi',
+    name: T('District Basic Education Officer (BSA)', 'जिला बेसिक शिक्षा अधिकारी (BSA)'),
+    role: T('Primary & Basic Education Head', 'बेसिक व प्राथमिक शिक्षा विभाग'),
+    phone: '9453004069',
+    category: 'dept',
+    badge: T('BSA Education', 'जिला बेसिक शिक्षा अधिकारी'),
+    highlight: false,
+    desc: T('District Basic Shiksha Adhikari - Primary and upper primary schools, teachers, MDM, and student education.', 'गाँव के प्राथमिक व उच्च प्राथमिक विद्यालयों, शिक्षकों, मिड-डे मील व शैक्षणिक व्यवस्था प्रमुख।')
+  },
+  {
+    id: 'dswo-amethi',
+    name: T('District Social Welfare Officer', 'जिला समाज कल्याण अधिकारी'),
+    role: T('Social Welfare & Pension Schemes', 'समाज कल्याण व वृद्धावस्था पेंशन'),
+    phone: '7752993648',
+    category: 'dept',
+    badge: T('Social Welfare', 'जिला समाज कल्याण अधिकारी'),
+    highlight: false,
+    desc: T('Social Welfare Department - Old age pension, national family benefit, scholarships, and social schemes.', 'वृद्धावस्था पेंशन, छात्रवृत्ति, राष्ट्रीय पारिवारिक लाभ योजना आदि के नोडल अधिकारी।')
+  },
+  {
+    id: 'ddwo-amethi',
+    name: T('District Divyangjan Empowerment Officer', 'जिला दिव्यांग सशक्तिकरण अधिकारी'),
+    role: T('Divyangjan Welfare & Assistive Support', 'दिव्यांगजन सशक्तिकरण व पेंशन'),
+    phone: '8189038754',
+    category: 'dept',
+    badge: T('Divyang Empowerment', 'दिव्यांग सशक्तिकरण अधिकारी'),
+    highlight: false,
+    desc: T('Empowerment of Persons with Disabilities - Divyang pension, motorized tricycles, and welfare aids.', 'दिव्यांग पेंशन, सहायक उपकरण वितरण (ट्राइसाइकिल आदि) एवं कल्याणकारी सहायता।')
+  }
+];
+

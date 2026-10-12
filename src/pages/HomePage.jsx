@@ -79,22 +79,13 @@ export default function HomePage() {
       {/* 4. Photo Gallery Preview with Framed White/Pearl Border */}
       <section className="py-20 sm:py-24 bg-pearl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-                {lang === 'hi' ? 'गाँव की झलकियाँ' : 'Authentic Gallery'}
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-navy mt-1">
-                {lang === 'hi' ? 'चिलूली — जनसेवा एवं सांस्कृतिक स्मृतियाँ' : 'Chiluli — Welfare & Community Life'}
-              </h2>
-            </div>
-            <Link
-              to="/gallery"
-              className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2 text-xs sm:text-sm font-semibold text-ivory hover:bg-gold hover:text-navy transition shadow"
-            >
-              <span>{lang === 'hi' ? `पूरी गैलरी देखें (${gallery.length} तस्वीरें)` : `View Full Gallery (${gallery.length} Photos)`}</span>
-              <span>→</span>
-            </Link>
+          <div className="mb-10">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+              {lang === 'hi' ? 'गाँव की झलकियाँ' : 'Authentic Gallery'}
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-navy mt-1">
+              {lang === 'hi' ? 'चिलूली — जनसेवा एवं सांस्कृतिक स्मृतियाँ' : 'Chiluli — Welfare & Community Life'}
+            </h2>
           </div>
 
           {/* 3 Recent Photos with Framed White/Pearl Borders */}
@@ -123,6 +114,17 @@ export default function HomePage() {
                 </figcaption>
               </figure>
             ))}
+          </div>
+
+          {/* Button Below 3 Images */}
+          <div className="mt-10 sm:mt-12 flex justify-center">
+            <Link
+              to="/gallery"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-navy px-7 py-3 text-sm sm:text-base font-semibold text-ivory hover:bg-gold hover:text-navy hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl border border-gold/30"
+            >
+              <span>{lang === 'hi' ? `पूरी गैलरी देखें (${gallery.length} तस्वीरें)` : `View Full Gallery (${gallery.length} Photos)`}</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
           </div>
         </div>
       </section>
